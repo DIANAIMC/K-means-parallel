@@ -7,11 +7,12 @@ cores=(2 4 8 16)
 # Inicializar el archivo CSV con encabezados
 echo "cores,tamaño,promedio" > datos/resultados_serial.csv
 echo "cores,tamaño,promedio" > datos/resultados_paralelo.csv
+echo "EMPEZAMOS"
 
 for tam in "${tamanios_entrada[@]}"; do
     suma_serial=0
     # Ejecutar el programa 10 veces
-    for i in {1..10}; do
+    for i in {0..11}; do
         # Ejecutar el programa y almacenar el resultado en la variable "resultado_actual"
         resultado_serial=$(./serial.exe $tam $cores)
         # Sumar el resultado actual a la suma total
