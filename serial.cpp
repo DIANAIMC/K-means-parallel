@@ -100,7 +100,7 @@ void kmeans(float** points, int n_clusters, long long int size, int max_iteratio
         delete[] counts;
     
     }
-    cout << "El numero de iteraciones fueron: " << iteration << "\n";
+    //cout << "El numero de iteraciones fueron: " << iteration << "\n";
 }
 
 void load_CSV(string file_name, float** points, long long int size) {
@@ -141,8 +141,8 @@ int main(int argc, char** argv) {
     const long long int size = atoll(argv[1]);
     double start_serial = 0.0;
     const int n_clusters = 5;
-    const string input_file_name = to_string(size)+"_data.csv";
-    const string output_file_name_serial = to_string(size)+"_results_serial.csv";       
+    const string input_file_name = "datos\\" + to_string(size)+"_data.csv";
+    const string output_file_name_serial = "datos\\" + to_string(size)+"_results_serial.csv";       
     float** serial = new float*[size];
 
     for(long long int i = 0; i < size; i++) {
@@ -155,9 +155,9 @@ int main(int argc, char** argv) {
     load_CSV(input_file_name, serial, size);
 
     start_serial = omp_get_wtime();
-    kmeans(serial, n_clusters, size, 1000); 
+    kmeans(serial, n_clusters, size, 20); 
     double tiempo_ejecucion_serial = omp_get_wtime() - start_serial;
-    cout << "tiempo de ejecución serial: " <<  tiempo_ejecucion_serial <<"\n";
+    cout <<  tiempo_ejecucion_serial;
     save_to_CSV(output_file_name_serial, serial, size);
 
     for(long long int i = 0; i < size; i++) {

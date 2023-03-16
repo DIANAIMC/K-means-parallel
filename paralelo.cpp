@@ -105,7 +105,7 @@ void kmeans_paralelo(float** points, int n_clusters, long long int size, int max
         delete[] centroids;
         delete[] counts;
     }
-    cout << "El numero de iteraciones fueron: " << iteration << "\n";
+    //cout << "El numero de iteraciones fueron: " << iteration << "\n";
 }
 
 void load_CSV(string file_name, float** points, long long int size) {
@@ -140,11 +140,13 @@ void save_to_CSV(string file_name, float** points, long long int size) {
 }
 
 int main(int argc, char** argv) {
-    if(argc < 2) {
-        cerr << "Error: el tamanio de los datos debe ser un argumento de linea de comando.\n";
+    if(argc < 3) {
+        cerr << "Error: el tamanio de los datos debe ser 2 argumentos de linea de comando.\n";
         return 1;
     }
     const long long int size = atoll(argv[1]);
+    const long long int num_threads = atoll(argv[2]);
+    omp_set_num_threads(num_threads);
     double start_paralelo = 0.0;
     const int n_clusters = 5;
     const string input_file_name = "datos\\" +  to_string(size) +"_data.csv"; 
@@ -161,9 +163,9 @@ int main(int argc, char** argv) {
     load_CSV(input_file_name, paralelo, size);
 
     start_paralelo = omp_get_wtime();
-    kmeans_paralelo(paralelo, n_clusters, size, 1000); 
+    kmeans_paralelo(paralelo, n_clusters, size, 20); 
     double tiempo_ejecucion_paralelo = omp_get_wtime() - start_paralelo;
-    cout << "tiempo de ejecucion paralelo: " <<  tiempo_ejecucion_paralelo <<"\n";
+    cout <<  tiempo_ejecucion_paralelo;
     save_to_CSV(output_file_name_paralelo, paralelo, size);
 
     for(long long int i = 0; i < size; i++) {
