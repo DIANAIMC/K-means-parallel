@@ -147,8 +147,8 @@ int main(int argc, char** argv) {
     const long long int size = atoll(argv[1]);
     double start_paralelo = 0.0;
     const int n_clusters = 5;
-    const string input_file_name = "datos/" +  to_string(size) +"_data.csv"; 
-    const string output_file_name_paralelo = "datos/" +  to_string(size) +"_results_paralelo.csv";    
+    const string input_file_name = "datos\\" +  to_string(size) +"_data.csv"; 
+    const string output_file_name_paralelo = "datos\\" +  to_string(size) +"_results_paralelo.csv";    
     float** paralelo = new float*[size];
 
     for(long long int i = 0; i < size; i++) {
